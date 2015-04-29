@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+<body>
+	<ui:composition template="/layout.xhtml">
+		<ui:define name="header">
+			<ui:include src="header.xhtml">
+				<ui:param name="headerText" value="#{msg.dataTableExample}" />
+			</ui:include>
+		</ui:define>
+
+		<ui:define name="content">
+
+			<div class="container">
+				<h:form id="form">
+					<p:growl id="growl" sticky="false" life="2000" />
+					<p:panelGrid columns="3">
+						<p:outputLabel value="#{msg.name}"></p:outputLabel>
+						<p:inputText id="name" value="#{dataTable.name}" required="true">
+							<f:validateLength minimum="2" maximum="10" />
+						</p:inputText>
+						<p:messages for="name" style="color :red;" showDetail="true"></p:messages>
+						<p:outputLabel value="#{msg.surname}"></p:outputLabel>
+						<p:inputText id="surname" value="#{dataTable.surname}"
+							required="true">
+							<f:validateLength minimum="2" maximum="10" />
+						</p:inputText>
+						<p:messages for="surname" style="color :red;" showSummary="true"></p:messages>
+						<p:outputLabel value="#{msg.birthdate}"></p:outputLabel>
+						<p:calendar id="birthdate" value="#{dataTable.birthdate}"
+							required="true" pattern="dd-MM-yyyy HH:mm:ss" mask="true"
+							navigator="true"></p:calendar>
+						<p:messages for="birthdate" style="color :red;" showDetail="true"></p:messages>
+
+						<p:commandButton id="add" action="#{dataTable.addStudent}"
+							value="#{msg.add}" partialSubmit="true" process="@form"
+							update="@form">
+						</p:commandButton>
+					</p:panelGrid>
+					<p:fileUpload
+						fileUploadListener="#{dataTable.handleFileUpload}"
+						mode="advanced" dragDropSupport="false" update="stdlist"
+						sizeLimit="100000" fileLimit="3"
+						allowTypes="/(\.|\/)(txt|csv)$/" />
+	
+					<br />
+					
+					<p:dataTable id="stdlist" value="#{dataTable.students}" var="std"
+						border="1" width="400" rowClasses="satir1, satir2" rows="10"
+						paginator="true"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15" draggableColumns="true"
+						selectionMode="single" selection="#{dataTable.selectedStudent}"
+						rowKey="#{std.surname}">
+						<p:ajax event="rowSelect" listener="#{dataTable.onRowSelect}"
+							update=":form:studentDetail"
+							oncomplete="PF('studentDialog').show()" />
+						<f:facet name="header">
+							<h:outputText value="#{msg.studentList}"></h:outputText>
+						</f:facet>
+						<p:column filterBy="#{std.name}" filterMatchMode="contains"
+							sortBy="#{std.name}">
+							<f:facet name="header">
+								<h:outputText value="#{msg.name}"></h:outputText>
+							</f:facet>
+							<p:inputText value="#{std.name}">
+								<p:ajax event="keyup" />
+							</p:inputText>
+						</p:column>
+						<p:column filterBy="#{std.surname}" filterMatchMode="contains"
+							sortBy="#{std.surname}">
+							<f:facet name="header">
+								<h:outputText value="#{msg.surname}"></h:outputText>
+							</f:facet>
+							<p:inputText value="#{std.surname}">
+								<p:ajax event="keyup" />
+							</p:inputText>
+						</p:column>
+						<p:column sortBy="#{std.birthdate}">
+							<f:facet name="header">
+								<h:outputText value="#{msg.birthdate}"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{std.birthdate}">
+								<f:convertDateTime pattern="dd.MM.yyyy"></f:convertDateTime>
+							</h:outputText>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.delete}"></h:outputText>
+							</f:facet>
+							<h:commandButton action="#{dataTable.removeStudent(std)}"
+								value="#{msg.delete}" immediate="true" />
+						</p:column>
+						<f:facet name="footer">
+							<h:outputText value="#{msg.footer}"></h:outputText>
+						</f:facet>
+					</p:dataTable>
+
+					<p:dialog header="Stuent Detail" widgetVar="studentDialog"
+						modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+						<p:outputPanel id="studentDetail" style="text-align:center;">
+							<p:panelGrid columns="2"
+								rendered="#{not empty dataTable.selectedStudent}">
+
+								<h:outputText value="Name:" />
+								<h:outputText value="#{dataTable.selectedStudent.name}" />
+
+								<h:outputText value="Surname:" />
+								<h:outputText value="#{dataTable.selectedStudent.surname}" />
+
+								<h:outputText value="Birthdate:" />
+								<h:outputText value="#{dataTable.selectedStudent.birthdate}" />
+							</p:panelGrid>
+						</p:outputPanel>
+					</p:dialog>
+				</h:form>
+			</div>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

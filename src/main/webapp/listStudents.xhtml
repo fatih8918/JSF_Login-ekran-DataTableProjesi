@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+</h:head>
+<body>
+	<ui:composition template="/layout.xhtml">
+		<ui:define name="header">
+			<ui:include src="header.xhtml">
+				<ui:param name="headerText" value="Öğrencileri Listele" />
+			</ui:include>
+		</ui:define>
+
+		<ui:define name="content">
+			<div class="container">
+				<h:form>
+					<h:dataTable id="stdlist" value="#{dataTable.students}" var="std"
+						border="1" width="400" rowClasses="satir1, satir2">
+						<f:facet name="header">
+							<h:outputText value="#{msg.studentList}"></h:outputText>
+						</f:facet>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.name}"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{std.name}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.surname}"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{std.surname}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.delete}"></h:outputText>
+							</f:facet>
+							<h:commandButton action="#{dataTable.removeStudent(std)}"
+								value="#{msg.delete}" />
+						</h:column>
+						<f:facet name="footer">
+							<h:outputText value="#{msg.footer}"></h:outputText>
+						</f:facet>
+					</h:dataTable>
+				</h:form>
+				<h:outputLink value="addStudent.xhtml">Geri</h:outputLink>
+			</div>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

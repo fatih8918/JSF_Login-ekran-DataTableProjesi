@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14197586337870" configfile="/infonalisGorusmesiJsfProject/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="addStudent.xhtml" id="pf14197643876091" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf14197643876092" path="/addStudent.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="listStudents.xhtml" id="pf14197643876093" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" outlinks="pf14197644304216" inlinks="pf14197643876092 pf14197644304216" path="/listStudents.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="dataTable.xhtml" id="pf14197644181344" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" outlinks="pf14197644181345" inlinks="pf14197644181345" path="/dataTable.xhtml"/>
+  <links id="pf14197643876092" target="pf14197643876093" source="pf14197643876091"/>
+  <links id="pf14197644181345" target="pf14197644181344" source="pf14197644181344"/>
+  <links id="pf14197644304216" target="pf14197643876093" source="pf14197643876093"/>
+</pageflow:Pageflow>

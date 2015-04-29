@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Insert title here</title>
+</h:head>
+<body>
+	Merhaba Dünya
+
+	<h:form>
+		<h:messages></h:messages>
+		<h:panelGrid columns="2">
+			<h:outputText value="Ad:"></h:outputText>
+			<h:inputText value="#{demoBean.name}" required="true"></h:inputText>
+			<h:outputText value="Soyad:"></h:outputText>
+			<h:inputText value="#{demoBean.surname}" required="true"></h:inputText>
+			<h:outputText value="Yaş:"></h:outputText>
+			<h:inputText value="#{demoBean.age}" required="true"></h:inputText>
+			<h:outputText value="Cinsiyet:"></h:outputText>
+			<h:selectOneRadio value="#{demoBean.gender}" required="true">
+				<f:selectItems value="#{demoBean.genders}"></f:selectItems>
+			</h:selectOneRadio>
+			
+			<h:outputText value="Adres:"></h:outputText>
+			<h:inputTextarea value="#{demoBean.address}" cols="100" rows="3" required="true"></h:inputTextarea>
+			<h:outputText value="Şehir:"></h:outputText>
+			<h:selectOneMenu value="#{demoBean.city}" onchange="submit();" valueChangeListener="#{demoBean.valueChangeMethod}" required="true" immediate="true">
+				<f:selectItems value="#{demoBean.cities}"> </f:selectItems>
+			</h:selectOneMenu>
+			<h:outputText value="ilçe:"></h:outputText>
+			<h:selectOneMenu value="#{demoBean.county}" required="true" >
+				<f:selectItems value="#{demoBean.counties}"> </f:selectItems>
+			</h:selectOneMenu>
+			<h:commandButton action="#{demoBean.kaydet}" value="kaydet"></h:commandButton>
+		</h:panelGrid>
+	</h:form>
+</body>
+</html>

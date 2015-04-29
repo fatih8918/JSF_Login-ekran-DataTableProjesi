@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+
+</h:head>
+<body>
+	<ui:composition template="/layout.xhtml">
+		<ui:define name="header">
+			<ui:include src="header.xhtml">
+				<ui:param name="headerText" value="#{msg.dataTableExample}" />
+			</ui:include>
+		</ui:define>
+
+		<ui:define name="content">
+			<div class="container">
+				<h:form>
+					<h:panelGrid columns="3">
+						<h:outputText value="#{msg.name}"></h:outputText>
+						<h:inputText id="name" value="#{dataTable.name}"></h:inputText>
+						<h:messages for="name" style="color :red;" showDetail="true"></h:messages>
+						<h:outputText value="#{msg.surname}"></h:outputText>
+						<h:inputText id="surname" value="#{dataTable.surname}"></h:inputText>
+						<h:messages for="surname" style="color :red;" showDetail="true"></h:messages>
+						<h:outputText value="#{msg.birthdate}"></h:outputText>
+						<h:inputText id="birthdate" value="#{dataTable.birthdate}"
+							required="true">
+							<f:convertDateTime pattern="dd.MM.yyyy"></f:convertDateTime>
+						</h:inputText>
+						<h:messages for="birthdate" style="color :red;" showDetail="true"></h:messages>
+						<h:commandButton action="#{dataTable.addStudent}"
+							value="#{msg.add}">
+						</h:commandButton>
+					</h:panelGrid>
+				</h:form>
+			</div>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>
